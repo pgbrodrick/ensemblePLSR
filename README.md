@@ -4,5 +4,12 @@ large portions of that work in a more clearly documented, easier to modify, and 
 
 More specifically, this code uses crown-based subsets of chemistry and spectra to construct a series of different individual PLSR models, and then aggregates those individual models.  The number of latent vectors used within each PLSR model is selected my minimizing a 10-fold average test set RMSE for increasing numbers of vectors (similar, though slightly different, than the A0 mode of the autoPLS package in R).
 
+Example input and settings files are provided.  Input data is expected as a CSV with required columns for:
+CSP_CODE [a unique identifier for each crown],
+Band_# [all reflectance data for n bands included]
+CalVal [indication of the calibration and validation subsets]
+Chemistry values
+
+
 If you use this code in a scientific publication, the authors would appreciate citations to the following publication:
 R.E. Martin, K.D. Chadwick, P.G. Brodrick, L. Carranza-Jimenez, N.R. Vaughn, and G.P. Asner. An approach for foliar trait retrieval from airborne imaging spectroscopy of tropical forests. Remote Sensing (In Review), 2017.
