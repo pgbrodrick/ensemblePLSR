@@ -32,7 +32,7 @@ import time
 from functools import partial
 import subprocess
 import matplotlib.gridspec as gridspec
-import sys
+import sys, os
 
 # internal function for autoselect_plsr - runs for a particular number of principles/components
 def internal_autoselect_iteration(X,Y,ncomp):
@@ -172,14 +172,22 @@ df = pd.read_csv(sf.get_setting('csv file'),sep=',')
 header =  list(df)
 df = np.array(df)
 
+if (os.path.isdir('figs') == False):
+    subprocess.call('mkdir figs',shell=True)
+if (os.path.isdir('stats') == False):
+    subprocess.call('mkdir stats',shell=True)
+if (os.path.isdir('plot_points') == False):
+    subprocess.call('mkdir plot_points',shell=True)
+if (os.path.isdir('coeff') == False):
+    subprocess.call('mkdir coeff',shell=True)
+if (os.path.isdir('lvs') == False):
+    subprocess.call('mkdir lvs',shell=True)
+
 
 ################## Data frame prep - get it cleaned up before looping through chems #####
 # get the chem list / chem transforms of interest
 chemlist = sf.get_setting('chems')
 chemtransform_list = sf.get_setting('chem transforms')
-
-refl_files = df[:,header.index('Reflectance file')]
-
 
 # use the settings file and input csv to find the columns of interest 
 crown_col = -1
@@ -237,11 +245,8 @@ un_test_crown_ids = np.unique(test_crown_ids)
 test_crown_names = crown_names[test_rows].copy()
 un_test_crown_names = np.unique(test_crown_names)
 
-test_refl_files = refl_files[test_rows].copy()
-
 df = df[np.logical_not(test_rows)]
 complete_crown_names = crown_names[np.logical_not(test_rows)].copy()
-train_refl_files = refl_files[np.logical_not(test_rows)]
 
 #complete_crown_names = crown_names[test_rows].copy()
 
@@ -286,10 +291,9 @@ for _chem in range(0,len(chemlist)):
   Y = Y[good_rows]
   crown = crown[good_rows]
   crown_names = complete_crown_names[good_rows]
-  refl_files = train_refl_files[good_rows]
 
   Y = apply_transform(Y,sf.get_setting('chem transforms')[_chem])
-  [X,Y,crown,crown_names,refl_files] = cleanup_spectra([X,Y,crown,crown_names,refl_files])
+  [X,Y,crown,crown_names] = cleanup_spectra([X,Y,crown,crown_names])
 
   # do a check on X and convert any nans or infs to 0s, which the PLSR will ignore
   X[np.isnan(X)] = 0
@@ -321,7 +325,6 @@ for _chem in range(0,len(chemlist)):
   global_Y_test = test_df[:,resp_col]
   global_crown_test = test_df[:,crown_col]
   global_crown_name_test = test_crown_names.copy()
-  global_test_refl_files = test_refl_files.copy()
 
   good_row = np.logical_not(np.all(global_X_test == 0,axis=1))
   good_row[global_Y_test == -9999] = False
@@ -330,9 +333,8 @@ for _chem in range(0,len(chemlist)):
   global_Y_test = global_Y_test[good_row]
   global_crown_test = global_crown_test[good_row]
   global_crown_name_test = global_crown_name_test[good_row]
-  global_test_refl_files = global_test_refl_files[good_row]
 
-  [global_X_test,global_Y_test,global_crown_test,global_crown_name_test,global_test_refl_files] = cleanup_spectra([global_X_test,global_Y_test,global_crown_test,global_crown_name_test,global_test_refl_files])
+  [global_X_test,global_Y_test,global_crown_test,global_crown_name_test] = cleanup_spectra([global_X_test,global_Y_test,global_crown_test,global_crown_name_test])
   
   global_crown_test_un,_gctu = np.unique(global_crown_test,return_index=True)
   global_crown_Y_test = []
