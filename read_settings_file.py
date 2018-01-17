@@ -82,28 +82,26 @@ class settings():
 
 
     bool_vars = ['brightness normalize','find bad bands','scale response',\
-                 'scale features','use degen removal']
+                 'scale features']
     for bool_var in bool_vars:
       if (self.settings_dict[bool_var] == 'false' or self.settings_dict[bool_var] == 'False'):
         self.settings_dict[bool_var] = False
       if (self.settings_dict[bool_var] == 'true' or self.settings_dict[bool_var] == 'True'):
         self.settings_dict[bool_var] = True
 
-    int_vars = ['iterations','samples per crown','n jobs','max band',\
+    int_vars = ['iterations','samples per crown','max band',\
                 'min pixel per crown','max components','test set value']
     for int_var in int_vars:
      if (self.settings_dict[int_var] != None):
       self.settings_dict[int_var] = int(self.settings_dict[int_var].strip())
 
     float_vars = ['ndvi minimum','ndvi maximum','brightness minimum','brightness maximum','test set holdout fraction',\
-                  'iteration holdout fraction','iteration fraction used',
-                  'anomaly score minimum','lowest wavelength','wavelength interval']
+                  'iteration holdout fraction','iteration fraction used', 'lowest wavelength','wavelength interval']
     for float_var in float_vars:
      if (self.settings_dict[float_var] != None):
       self.settings_dict[float_var] = float(self.settings_dict[float_var])
 
-    string_vars = ['band preface','crown col','resolution col','shade col',
-    'anomaly col','shade code','version name']
+    string_vars = ['band preface','crown col','version name']
     for string_var in string_vars:
      if (self.settings_dict[string_var] != None):
       self.settings_dict[string_var] = self.settings_dict[string_var].replace('\'','')
