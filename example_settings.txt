@@ -1,0 +1,39 @@
+[General]
+version name = example
+
+[Data]
+csv file = ensemble_plsr_sample_data.csv
+band preface = 'Band_'
+chems(comma separated chem list) =  LMA, N, C, P
+chem transforms(comma separated chem transform list...options -- log, sqrt, square) = None, None, None, None 
+crown col = CSP_CODE
+test training col = CalVal
+test set value = 0 
+
+
+[Spectral]
+bad bands(1-based) = 1,2,3,4,5,6,7,8,9,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,211,212,213,214
+ignore columns(any other columns to remove) =
+brightness normalize = True
+ndvi maximum = -1
+brightness maximum (-1 for none)= 51000 
+brightness minimum (-1 for none)= 15000
+ndvi minimum (-1 for none)= 0.7 
+max band = 214 
+lowest wavelength(nm) = 350 
+wavelength interval(nm) = 10
+
+
+
+[Algorithm]
+iterations = 4 
+iteration fraction used (picks this fraction of the best iterations to ultimately use) = 0.5 
+samples per crown (-1 to use all) = 5 
+min pixel per crown = 1 
+max components = 30
+find bad bands = False
+scale response = False
+scale features = False
+test set holdout fraction = 0 
+iteration holdout fraction = 0.1 
+
