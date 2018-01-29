@@ -1,17 +1,16 @@
 ############################## ALAB PLSR Adaptation ##########################
 # The purpose of this code is to take a generically formatted csv database
-# of chems and spectra, and run PLSR calibrations on that data.  While multiple
+# of foliar chemistries and spectra, and run PLSR calibrations on those data.  While multiple
 # methods of running this analysis are viable using this code (through use of
-# the associated settings file), this is adapted very directly from the second
-# chapter of Dana Chadwick's thesis (Chadwick, K. Dana, and Gregory P. Asner. 
+# the associated settings file), this is adapted directly from Chadwick, K.D. and G.P. Asner. 
 # "Organismic-scale remote sensing of canopy foliar traits in lowland tropical forests." 
-# Remote Sensing 8.2 (2016): 87.). Dana's original code used the autopls package,
-# which showed strong results, but is very slow to execute.  This code adapts
-# large portions of that work in a more clearly documented, easier to modify,
-# and faster way.  The paper for the autopls package is 
-# (Schmidtlein, Sebastian, Hannes Feilhauer, and Helge Bruelheide. "Mapping plant 
-# strategy types using remote sensing." Journal of Vegetation Science 23.3 (2012): 395-405.).
-# These adaptations were originally performed by Phil Brodrick (phil.brodrick@gmail.com).
+# Remote Sensing 8.2 (2016):87. The original code used the autopls package, was slow to execute.
+# This updated code adapts large portions of that work in a more clearly documented, easier to modify,
+# and faster way.  The paper for the autopls package is Schmidtlein, S., H. Feilhauer, and H. Bruelheide.
+# "Mapping plant strategy types using remote sensing." Journal of Vegetation Science 23.3 (2012):395-405.
+# These adaptations were originally performed by Phil Brodrick under CAO research contract to The 
+# Rainforest Trust (CIW #10719). Contact P. Brodrick (pbrodrick@ciw.edu) for code questions. Contact G.P.
+# Asner (gpa@ciw.edu) or R.E. Martin (rmartin@ciw.edu) for applications and programmatic questions.
 #############################################################################
 
 import pandas as pd
