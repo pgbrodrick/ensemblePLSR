@@ -146,7 +146,7 @@ def cleanup_spectra(listin):
     if (sf.get_setting('ndvi maximum') != -1):
       good_row[ndvi > sf.get_setting('ndvi maximum')] = False
   
- ### What does this do? 
+ ###  
   for n in range(0,len(listin)):
     if (len(listin[n].shape) == 1):
       listin[n] = listin[n][good_row]
