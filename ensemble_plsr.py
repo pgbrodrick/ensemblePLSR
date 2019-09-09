@@ -62,7 +62,7 @@ def autoselect_plsr(X,Y,max_comp):
   loc_coeff = np.zeros(X.shape[1]+1)
   loc_coeff[1:] = np.squeeze(model.coef_)
   loc_coeff[0] = model.y_mean_ - np.dot(model.x_mean_ , model.coef_)
-  return loc_coeff, scores
+  return loc_coeff, list(scores)
 
 
 # apply a forward or backward transformation, intended for chem data if needed
@@ -165,7 +165,6 @@ def cleanup_spectra(listin):
 
 
 np.random.seed(13)
-
 sf = read_settings_file.settings(sys.argv[1])
 sf.clean_and_check()
 df = pd.read_csv(sf.get_setting('csv file'),sep=',')
