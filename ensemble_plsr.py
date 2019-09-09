@@ -169,6 +169,8 @@ sf = read_settings_file.settings(sys.argv[1])
 sf.clean_and_check()
 df = pd.read_csv(sf.get_setting('csv file'),sep=',')
 
+df.pop(sf.get_setting('ignore columns'))
+
 header =  list(df)
 df = np.array(df)
 
