@@ -3,7 +3,7 @@
 
 
 
-import ConfigParser
+import configparser
 import sys,os,re
 import numpy as np
 
@@ -127,7 +127,7 @@ class settings():
 
   def __init__(self,filename):
     self.settings_filename = ''
-    self.settings_obj = ConfigParser.ConfigParser()
+    self.settings_obj = configparser.ConfigParser()
     self.settings_dict = ''
     self.settings_filename = filename
     self.settings_obj.read(filename)
