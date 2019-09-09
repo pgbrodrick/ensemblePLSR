@@ -15,8 +15,8 @@ class settings():
      while ('(' in instring):
        start_ind = instring.index('(')
        if (')' not in instring):
-         print 'unmatched ( in input::::         ',orig_instring
-         print 'terminating'
+         print('unmatched ( in input::::         {}'.format(orig_instring))
+         print('terminating')
          quit()
        end_ind = instring.split('=')[0].rindex(')')
        instring = instring.replace(instring[start_ind:end_ind+1],'')
@@ -44,8 +44,8 @@ class settings():
   
   def get_setting(self,ref):
     if (ref not in self.settings_dict):
-      print 'could not locate setting\'' + ref + '\' in  settings file',self.settings_filename
-      print 'terminating'
+      print('could not locate setting {} in  settings file {}'.format(ref,self.settings_filename))
+      print('terminating')
       quit()
     return self.settings_dict[ref]
 
@@ -53,13 +53,13 @@ class settings():
   def clean_and_check(self):
 
     if ('csv file' not in self.settings_dict):
-      print 'no csv input provided.  terminating'
+      print('no csv input provided.  terminating')
       quit()
     if (self.settings_dict['csv file'] == None):
-      print 'no csv input provided.  terminating'
+      print('no csv input provided.  terminating')
       quit()
     if (os.path.isfile(self.settings_dict['csv file']) == False):
-      print 'csv file: \'',self.settings_dict['csv file'],'\' is invalid.  terminating'
+      print('csv file: {} is invalid, terminating.'.format(self.settings_dict['csv file']))
       quit()
 
     
@@ -67,7 +67,7 @@ class settings():
     if (self.settings_dict['bad bands'] == None):
       self.settings_dict['bad bands'] = np.array([-1])
     else:
-      print 'n bad bands',len(self.settings_dict['bad bands'])
+      print('n bad bands {}'.format(len(self.settings_dict['bad bands'])))
       self.settings_dict['bad bands'] = np.array([int(x) for x in self.settings_dict['bad bands']])
 
     ##### ndvi bands list ( list converted to ints)
@@ -120,7 +120,7 @@ class settings():
     
     if (self.settings_dict['iteration holdout fraction'] in [None,0] and \
         self.settings_dict['iteration fraction used'] != 1):
-       print 'if iteration fraction used is specified, an iteration holdout fraction greater than 0 must be specified as well'
+       print('if iteration fraction used is specified, an iteration holdout fraction greater than 0 must be specified as well')
        quit()
   
   
