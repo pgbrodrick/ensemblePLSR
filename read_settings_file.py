@@ -76,7 +76,7 @@ class settings():
     else:
       self.settings_dict['ndvi bands'] = np.array([int(x) for x in self.settings_dict['ndvi bands']])
       assert len(self.settings_dict['ndvi bands']) == 2, 'only 2 NDVI bands available'
-      assert ndvi_bands[1] > ndvi_bands[0], 'only 2 NDVI bands available'
+      assert self.settings_dict['ndvi bands'][1] > self.settings_dict['ndvi bands'][0], 'only 2 NDVI bands available'
     
 
 
