@@ -98,13 +98,13 @@ def brightness_normalize(X,return_norm=False):
 
 # print active performance results
 def print_res(x,y,label,print_xy=False):
-  print '######### ',label,'  #########'
-  print 'slope','intercept','r squared','rmse'
+  print('######### {}  #########'.format(label))
+  print('slope','intercept','r squared','rmse')
   slope, intercept, r_value, p_value, std_err = stats.linregress(np.squeeze(x),np.squeeze(y))
-  print slope,intercept,r_value**2,np.sqrt(np.mean(np.power(x-y,2)))
+  print('{}, {}, {}, {}'.format(slope,intercept,r_value**2,np.sqrt(np.mean(np.power(x-y,2)))))
   if (print_xy == True):
-    print x
-    print y
+    print(x)
+    print(y)
  
 # basic plsr prediction assuming that the coefficient vector has the intercept as the first element,
 # and coefficients matching the reflectance matrix as the rest of the elements
@@ -136,11 +136,12 @@ def cleanup_spectra(listin):
   # ndvi bands (46 - 34) / (46 + 34) [1 - based]
   if (sf.get_setting('ndvi minimum') != -1 or sf.get_setting('ndvi maximum') != -1):
     bad_bands = sf.get_setting('bad bands')
-    if (46 in bad_bands or 34 in bad_bands):
-      print 'cannot use NDVI min without bands 34 and 46'
-    _46 = 46 - np.sum(bad_bands < 46) - 1
-    _34 = 34 - np.sum(bad_bands < 34) - 1
-    ndvi = (x[:,_46] - x[:,_34]) / (x[:,_46] + x[:,_34])
+    ndvi_bands = sf.get_setting('ndvi bands')
+
+    if (ndvi_bands[0] in bad_bands or ndvi_bands[1] in bad_bands):
+      print('cannot use NDVI min without bands {}'.format(ndvi_bands))
+    ndvi_bands = ndvi_bands -1
+    ndvi = (x[:,ndvi_bands[1]] - x[:,ndvi_bands[0]]) / (x[:,ndvi_bands[1]] + x[:,ndvi_bands[0]])
     if (sf.get_setting('ndvi minimum') != -1):
       good_row[ndvi < sf.get_setting('ndvi minimum')] = False
     if (sf.get_setting('ndvi maximum') != -1):
@@ -153,7 +154,7 @@ def cleanup_spectra(listin):
     elif (len(listin[n].shape) == 2):
       listin[n] = listin[n][good_row,:]
     else:
-      print 'bad listin length',n
+      print('bad listin length',n)
       quit()
 
   return listin
@@ -203,7 +204,7 @@ for i in range(0,len(header)):
         x_col.append(i)
 x_col = np.array(x_col)
 if (crown_col == -1):
-  print 'no crown index \'',sf.get_setting('crown col'),'\' found, terminating.'
+  print('no crown index \'',sf.get_setting('crown col'),'\' found, terminating.')
       
 # remove cronws where there aren't at least min pixels per crown
 un_crown = np.unique(df[:,crown_col])
@@ -214,7 +215,7 @@ for n in range(0,len(un_crown)):
 
 prev_size = df.shape[0]
 df = df[good_rows,:]
-print 'Number of pixels trimmed by min pixel per crown:',prev_size - df.shape[0]
+print('Number of pixels trimmed by min pixel per crown:',prev_size - df.shape[0])
 
      
 # convert the crown columns to a list of unique IDs that are numerical (for convenience)
@@ -259,11 +260,11 @@ stat_file = 'stats/' + sf.get_setting('version name') + '.txt'
 outstr = 'Chem, Val-Slope, Val-Intercept, Val-R2, Val-RMSE, Val-%RMSE, Cal-Slope, Cal-Intercept, Cal-R2, Cal-RMSE, Cal-%RMSE'
 subprocess.call('echo \"' + outstr + '\" > ' + stat_file,shell=True)
 
-print 'preparing data...'
+print('preparing data...')
 
 ################# step through each chem, run all PLSR code.  Each chem is independent ############
 for _chem in range(0,len(chemlist)):
-  print chemlist[_chem]
+  print(chemlist[_chem])
  
   # find the column of the dataframe corresponding to the chem of interest
   resp_col = -1
@@ -273,7 +274,7 @@ for _chem in range(0,len(chemlist)):
       break
 
   if (resp_col == -1):
-    print 'no response column\'',chemlist[_chem],'\' found'
+    print('no response column\'',chemlist[_chem],'\' found')
     quit()
   
   # convert the dataframe to the components we'll use for this chem.  Apply any normalizations
@@ -302,12 +303,12 @@ for _chem in range(0,len(chemlist)):
   # terminates after doing this check, assuming the user intends to put these back into
   # the settings file
   if (sf.get_setting('find bad bands')):
-    print 'bad band guesses: '
+    print('bad band guesses: ')
     lh = np.array(header)[x_col]
     for t in range(0,X.shape[1]):
       if np.all(X[:,t] == 0):
-        print lh[t].split('B')[1],
-    print ''
+        print(lh[t].split('B')[1])
+    print('')
     quit() 
   
   # set up a 'global holdout' - this is a true test set, not a validation set.

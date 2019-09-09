@@ -70,6 +70,17 @@ class settings():
       print 'n bad bands',len(self.settings_dict['bad bands'])
       self.settings_dict['bad bands'] = np.array([int(x) for x in self.settings_dict['bad bands']])
 
+    ##### ndvi bands list ( list converted to ints)
+    if (self.settings_dict['ndvi bands'] == None):
+      self.settings_dict['ndvi bands'] = np.array([34, 46])
+    else:
+      self.settings_dict['ndvi bands'] = np.array([int(x) for x in self.settings_dict['ndvi bands']])
+      assert len(self.settings_dict['ndvi bands']) == 2, 'only 2 NDVI bands available'
+      assert ndvi_bands[1] > ndvi_bands[0], 'only 2 NDVI bands available'
+    
+
+
+
     ###### string lists
     for lk in ['chems','chem transforms','ignore columns']:
       if (self.settings_dict[lk] == None):
