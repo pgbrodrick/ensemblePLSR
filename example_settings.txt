@@ -19,6 +19,7 @@ ndvi maximum = -1
 brightness maximum (-1 for none)= 51000 
 brightness minimum (-1 for none)= 15000
 ndvi minimum (-1 for none)= 0.7 
+ndvi bands (1-based)=34,46
 max band = 214 
 lowest wavelength(nm) = 350 
 wavelength interval(nm) = 10

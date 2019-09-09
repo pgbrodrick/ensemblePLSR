@@ -15,6 +15,8 @@ Asner (gpa@ciw.edu) or R.E. Martin (rmartin@ciw.edu) for programmatic or applica
 
 More specifically, this code uses crown-based subsets of chemistry and spectra to construct a series of different individual PLSR models, and then aggregates those individual models.  The number of latent vectors used within each PLSR model is selected my minimizing a 10-fold average test set RMSE for increasing numbers of vectors (similar, though slightly different, than the A0 mode of the autoPLS package in R).
 
+Code was updated 09/09/2019 to work with Python 3.
+
 Example input and settings files are provided.  Input data is expected as a CSV with required columns for:
 CSP_CODE [a unique identifier for each crown],
 Band_# [all reflectance data for n bands included]
