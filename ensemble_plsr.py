@@ -15,6 +15,7 @@
 
 import pandas as pd
 import numpy as np
+import numpy.matlib
 
 from sklearn import linear_model
 from scipy import stats
@@ -169,7 +170,8 @@ sf = read_settings_file.settings(sys.argv[1])
 sf.clean_and_check()
 df = pd.read_csv(sf.get_setting('csv file'),sep=',')
 
-df.pop(sf.get_setting('ignore columns'))
+for col in sf.get_setting('ignore columns'):
+    df.pop(col)
 
 header =  list(df)
 df = np.array(df)
