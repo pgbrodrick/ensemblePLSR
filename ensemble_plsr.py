@@ -237,6 +237,8 @@ test_rows = df[:,test_col] == sf.get_setting('test set value')
 #Remove columns that have been filtered on already
 df = np.delete(df,test_col,axis=1)
 header.pop(test_col)
+if (test_col < np.min(x_col)):
+    x_col -= 1
 
 # convert the dataframe to an array of floats
 df = np.float64(df)
@@ -258,6 +260,7 @@ outstr = 'Chem,# LV Selected'
 for n in range(2,sf.get_setting('max components')):
   outstr += ',LV-' + str(n) + 'RMSE'
 subprocess.call('echo \"' + outstr + '\" > ' + lv_file,shell=True)
+
 
 stat_file = 'stats/' + sf.get_setting('version name') + '.txt'
 outstr = 'Chem, Val-Slope, Val-Intercept, Val-R2, Val-RMSE, Val-%RMSE, Cal-Slope, Cal-Intercept, Cal-R2, Cal-RMSE, Cal-%RMSE'
