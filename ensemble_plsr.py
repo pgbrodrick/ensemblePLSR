@@ -354,7 +354,15 @@ for _chem in range(0,len(chemlist)):
   Y = Y[global_holdout != 0].reshape(-1,1)
   crown = crown[global_holdout != 0]
   crown_names = crown_names[global_holdout != 0]
-  
+
+  # set pixel-wise scaling if necessary
+  if sf.get_setting('pixel-wise scaling'):
+      X -= np.mean(X,axis=1)[:,np.newaxis]
+      X /= np.std(X,axis=1)[:,np.newaxis]
+
+      global_X_test -= np.mean(X,axis=1)[:,np.newaxis]
+      global_X_test /= np.std(X,axis=1)[:,np.newaxis]
+
 
   # fit the x and y scalers (application will come later if it's supposed to)
   x_scaler = preprocessing.StandardScaler()

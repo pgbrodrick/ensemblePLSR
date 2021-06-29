@@ -93,7 +93,7 @@ class settings():
 
 
     bool_vars = ['brightness normalize','find bad bands','scale response',\
-                 'scale features']
+                 'scale features', 'pixel-wise scaling']
     for bool_var in bool_vars:
       if (self.settings_dict[bool_var] == 'false' or self.settings_dict[bool_var] == 'False'):
         self.settings_dict[bool_var] = False
